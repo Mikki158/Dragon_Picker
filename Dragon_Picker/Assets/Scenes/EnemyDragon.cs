@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDragon : MonoBehaviour
 {
-    public GameObject dragonEgg;
+    public GameObject dragonEggPrefab;
 
     public float speed = 1f;  
     public float timeBetweenEggDrops = 1f;
@@ -13,7 +13,7 @@ public class EnemyDragon : MonoBehaviour
 
     void Start()
     {
-        
+        Invoke("DropEgg", 2f);
     }
 
     void Update()
@@ -33,4 +33,13 @@ public class EnemyDragon : MonoBehaviour
         if (Random.value < chanceDirection)
             speed *= -1;
     }
+
+    private void DropEgg()
+    {
+        Vector3 myVector = new Vector3(0.0f, 5.0f, 0.0f);
+        GameObject egg = Instantiate<GameObject>(dragonEggPrefab);
+        egg.transform.position += myVector;
+        Invoke("DropEgg", timeBetweenEggDrops);
+    }
+
 }
