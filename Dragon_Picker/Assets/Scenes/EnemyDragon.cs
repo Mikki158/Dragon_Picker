@@ -38,7 +38,7 @@ public class EnemyDragon : MonoBehaviour
     {
         Vector3 myVector = new Vector3(0.0f, 5.0f, 0.0f);
         GameObject egg = Instantiate<GameObject>(dragonEggPrefab);
-        egg.transform.position += myVector;
+        egg.transform.position = transform.position + myVector;
         Invoke("DropEgg", timeBetweenEggDrops);
     }
 
