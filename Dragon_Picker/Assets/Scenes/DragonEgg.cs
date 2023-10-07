@@ -17,7 +17,11 @@ public class DragonEgg : MonoBehaviour
     void Update()
     {
         if (transform.position.y < bottomY)
+        {
             Destroy(this.gameObject);
+            DragonPicker apScript = Camera.main.GetComponent<DragonPicker>();
+            apScript.DragonEggDestroyed();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

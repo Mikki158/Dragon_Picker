@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DragonPicker : MonoBehaviour
 {
@@ -8,19 +9,21 @@ public class DragonPicker : MonoBehaviour
     public int numEnergyShield = 3;
     public float energyShieldBottomY = -6f;
     public float energyShieldRadius = 1.5f;
+    public List<GameObject> shieldList;
 
-    // Start is called before the first frame update
     void Start()
     {
+        shieldList = new List<GameObject>();
+
         for (int i = 1; i <= numEnergyShield; i++)
         {
             GameObject tShieldGo = Instantiate<GameObject>(energyShieldPrefab);
             tShieldGo.transform.position = new Vector3(0, energyShieldBottomY, 0);
             tShieldGo.transform.localScale = new Vector3(1 * i, 1 * i, 1 * i);
+            shieldList.Add(tShieldGo);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -29,9 +32,20 @@ public class DragonPicker : MonoBehaviour
     public void DragonEggDestroyed()
     {
         GameObject[] tDragonEggArray = GameObject.FindGameObjectsWithTag("Dragon Egg");
+
         foreach(GameObject tGO in tDragonEggArray)
         {
             Destroy(tGO);
+        }
+
+        int shieldIndex = shieldList.Count - 1;
+        GameObject tshieldGo = shieldList[shieldIndex];
+        shieldList.RemoveAt(shieldIndex);
+        Destroy(tshieldGo);
+
+        if(shieldList.Count == 0)
+        {
+            SceneManager.LoadScene("_0Scene");
         }
     }
 }
