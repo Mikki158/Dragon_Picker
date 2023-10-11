@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreGT: {fileID: 0}
+  audioSource: {fileID: 650529699475951783}
 --- !u!82 &650529699475951783
 AudioSource:
   m_ObjectHideFlags: 0
