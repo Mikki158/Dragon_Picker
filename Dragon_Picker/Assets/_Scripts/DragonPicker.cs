@@ -15,6 +15,7 @@ public class DragonPicker : MonoBehaviour
     public float energyShieldBottomY = -6f;
     public float energyShieldRadius = 1.5f;
     public TextMeshProUGUI scoreGT;
+    public TextMeshProUGUI playerName;
 
     public List<GameObject> shieldList;
 
@@ -59,7 +60,8 @@ public class DragonPicker : MonoBehaviour
         {
             GameObject scoreGo = GameObject.Find("Score");
             scoreGT = scoreGo.GetComponent<TextMeshProUGUI>();
-            UserSave(int.Parse(scoreGT.text));
+            UserSave(int.Parse(scoreGT.text), YandexGame.savesData.bestScore);
+            YandexGame.NewLBScoreTimeConvert("TOPPlayerScore", int.Parse(scoreGT.text));
             SceneManager.LoadScene("_0Scene");
         }
     }
@@ -67,11 +69,19 @@ public class DragonPicker : MonoBehaviour
     public void GetLoadSave()
     {
         Debug.Log(YandexGame.savesData.score);
+
+        GameObject playerNamePrefabGUI = GameObject.Find("PlayerName");
+        playerName = playerNamePrefabGUI.GetComponent<TextMeshProUGUI>();
+        playerName.text = YandexGame.playerName;
     }
 
-    public void UserSave(int currentScore)
+    public void UserSave(int currentScore, int currentBestScore)
     {
         YandexGame.savesData.score = currentScore;
+        if (currentScore < currentBestScore)
+        {
+            YandexGame.savesData.bestScore = currentScore;
+        }
         YandexGame.SaveProgress();
     }
 }
